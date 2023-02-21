@@ -8,21 +8,23 @@ on:
     branches:
       - master
 
-env:
-  SSH_USER: ${{ secrets.SSH_USER }}
-  SSH_HOST: ${{ secrets.SSH_HOST }}
-  SSH_KEY: ${{ secrets.SSH_KEY }}
-
 jobs:
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use SSH key
-      uses: webfactory/ssh-agent@v0.5.0
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install SSH
+      run: sudo apt-get install openssh-client
+
+    - name: SSH into server and deploy
+      uses: appleboy/ssh-action@master
       with:
-        ssh-private-key: ${{ env.SSH_KEY }}
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
             rm -rf $HOME/pipeline-app
             mkdir -p $HOME/pipeline-app
