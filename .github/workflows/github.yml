@@ -8,15 +8,20 @@ on:
     branches:
       - master
 
+env:
+  SSH_USER: ${{ secrets.SSH_USER }}
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_KEY: ${{ secrets.SSH_KEY }}
+
 jobs:
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use SSH key
-        uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-      - name: Deploy to Server
-        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 'rm -rf $HOME/pipeline-app && mkdir -p $HOME/pipeline-app && cd $HOME/pipeline-app && git clone https://github.com/tuantranquang20/pipeline-app.git . && chmod +x deploy.sh && ./deploy.sh'
+    - uses: actions/checkout@v2
+    - name: Use SSH key
+      uses: webfactory/ssh-agent@v0.5.0
+      with:
+        ssh-private-key: ${{ env.SSH_KEY }}
+    - name: Deploy to Server
+      run: ssh ${{env.SSH_USER}}@${{env.SSH_HOST}} 'bash -s' < 'rm -rf $HOME/pipeline-app && mkdir -p $HOME/pipeline-app && cd $HOME/pipeline-app && git clone https://github.com/tuantranquang20/pipeline-app.git . && chmod +x deploy.sh && ./deploy.sh'
