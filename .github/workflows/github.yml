@@ -24,4 +24,4 @@ jobs:
       with:
         ssh-private-key: ${{ env.SSH_KEY }}
     - name: Deploy to Server
-      run: ssh ${{env.SSH_USER}}@${{env.SSH_HOST}} 'bash -s' < 'cd $HOME/pipeline-app && ./deploy.sh'
+      run: ssh ${{env.SSH_USER}}@${{env.SSH_HOST}} 'bash -s' < 'cd /root/pipeline-app/ && ./deploy.sh'
