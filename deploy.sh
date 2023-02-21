@@ -1,8 +1,8 @@
 echo "Deploying....."
-rm -rf $HOME/pnh-test
-mkdir -p $HOME/pnh-test
-cd $HOME/pnh-test
-git clone https://github.com/tuantranquang20/pnh-test.git .
+rm -rf $HOME/pipeline-app
+mkdir -p $HOME/pipeline-app
+cd $HOME/pipeline-app
+git clone https://github.com/tuantranquang20/pipeline-app.git .
 npm install
 npm run build
 rm -rf /var/www/html
