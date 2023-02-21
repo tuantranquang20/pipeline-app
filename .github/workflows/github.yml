@@ -23,6 +23,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.0
       with:
         ssh-private-key: ${{ env.SSH_KEY }}
-    - name: Deploy to Server
-      run: ssh ${{env.SSH_USER}}@${{env.SSH_HOST}} 'bash -s' < ../../deploy.sh
+        script: |
+            rm -rf $HOME/pipeline-app
+            mkdir -p $HOME/pipeline-app
+            cd $HOME/pipeline-app
+            git clone https://github.com/tuantranquang20/pipeline-app.git .
+            chmod +x deploy.sh
+            ./deploy.sh
       
