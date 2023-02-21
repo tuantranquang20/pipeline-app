@@ -1,4 +1,5 @@
 echo "Deploying....."
+git pull https://github.com/tuantranquang20/pipeline-app.git
 npm install
 npm run build
 rm -rf /var/www/html
