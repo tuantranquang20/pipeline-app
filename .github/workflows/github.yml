@@ -19,4 +19,4 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       - name: Deploy to Server
-        run: ssh ${secrets.SSH_USER}@${secrets.SSH_HOST} 'rm -rf $HOME/pipeline-app && mkdir -p $HOME/pipeline-app && cd $HOME/pipeline-app && git clone https://github.com/tuantranquang20/pipeline-app.git . && chmod +x deploy.sh && ./deploy.sh'
+        run: ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 'rm -rf $HOME/pipeline-app && mkdir -p $HOME/pipeline-app && cd $HOME/pipeline-app && git clone https://github.com/tuantranquang20/pipeline-app.git . && chmod +x deploy.sh && ./deploy.sh'
