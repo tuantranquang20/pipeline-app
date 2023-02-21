@@ -1,4 +1,4 @@
-name: Build and Deploy React
+name: Build and Push Docker Image
 
 on:
   push:
@@ -24,6 +24,5 @@ jobs:
       with:
         ssh-private-key: ${{ env.SSH_KEY }}
     - name: Deploy to Server
-      # run: ssh -p ${{ env.SSH_PORT }} ${env.SSH_USER}@${env.SSH_HOST} 'cd /var/www && git pull'
       run: ssh ${{ env.SSH_PORT }} ${env.SSH_USER}@${env.SSH_HOST} 'bash -s' < ./../deploy.sh
       
