@@ -14,25 +14,28 @@ env:
   SSH_KEY: ${{ secrets.SSH_KEY }}
 
 jobs:
-  build-and-deploy:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
+    env:
+      SOURCE_DIR: "build/"
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: unnecessary
+      - name: Install dependencies
+        run: yarn
 
-      - name: Deploy
-        uses: appleboy/ssh-action@master
+      - name: Build
+        run: yarn build
+
+      - name: Deploy production
+        if: github.ref == 'refs/heads/master'
+        uses: garygrossgarten/github-action-scp@release
         with:
+          local: build
+          remote: ${{ secrets.HOME_PATH }}
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd /root/pipeline-app
-            ./deploy.sh
