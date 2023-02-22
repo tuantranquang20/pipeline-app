@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Repository checkout
         uses: actions/checkout@v2
-      - name: Connects to VPS via SSH
+      - name: Connects to server via SSH and deploy
         uses: appleboy/ssh-action@v0.1.3
         with:
           host: ${{ secrets.SSH_HOST }}
