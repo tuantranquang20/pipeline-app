@@ -34,4 +34,5 @@ jobs:
           script: |
             cd pipeline-app
             git pull
+            chmod +x deploy.sh
             ./deploy.sh
