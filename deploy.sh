@@ -1,6 +1,8 @@
 echo "Deploying....."
 whoami
 ls -la
+yarn -v
+node -v
 yarn
 yarn build
 rm -rf /var/www
