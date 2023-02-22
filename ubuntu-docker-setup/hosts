@@ -1,2 +1,2 @@
 [all]
-159.89.203.13 ansible_user=root ansible_become=true
+ip_server ansible_user=root ansible_become=true
