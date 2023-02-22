@@ -32,4 +32,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            ls -la
+            cd pipeline-app
+            ./deploy.sh
