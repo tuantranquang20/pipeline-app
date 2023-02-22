@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          React js deploy
+          React js auto deploy with Docker & nginx
         </a>
       </header>
     </div>
