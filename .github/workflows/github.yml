@@ -33,6 +33,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd pipeline-app
+            git reset --h
             git pull
             chmod +x deploy.sh
             ./deploy.sh
