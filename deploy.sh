@@ -1,7 +1,7 @@
 echo "Deploying....."
 whoami
 ls -la
-yarn -v
+yarn --version
 node -v
 yarn
 yarn build
