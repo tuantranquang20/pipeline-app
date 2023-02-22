@@ -1,4 +1,6 @@
 echo "Deploying....."
+whoami
+ls -la
 yarn
 yarn build
 rm -rf /var/www
