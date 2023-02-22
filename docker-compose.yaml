@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  frontend:
+    container_name: pipeline-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - 80:80

@@ -1,0 +1,54 @@
+---
+- name: Install Docker and Docker Compose on remote Ubuntu machine
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install prerequisites for Docker
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+        dest: /usr/local/bin/docker-compose
+        mode: 'a+x'
+      vars:
+        docker_compose_version: 1.29.2
+
+    - name: Set read and write for docker
+      shell: "sudo chmod +x /usr/local/bin/docker-compose"
+    
+    - name: Change permission for Docker
+      shell: "sudo chmod 666 /var/run/docker.sock"
+
