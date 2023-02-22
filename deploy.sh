@@ -1,8 +1,4 @@
 echo "Deploying....."
-whoami
-ls -la
-yarn --version
-node -v
 yarn
 yarn build
 rm -rf /var/www
