@@ -32,8 +32,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            rm -rf pipeline-app
-            git clone https://github.com/tuantranquang20/pipeline-app.git
             cd pipeline-app
             git reset --h
             git pull
