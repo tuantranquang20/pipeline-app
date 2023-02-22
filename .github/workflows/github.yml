@@ -33,4 +33,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd pipeline-app
+            git pull
             ./deploy.sh
